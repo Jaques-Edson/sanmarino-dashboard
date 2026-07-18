@@ -142,6 +142,35 @@
             border-radius: 50%;
         }
 
+        .period-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .period-btn {
+            padding: 8px 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .period-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .period-btn.active {
+            background: #667eea;
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
         .last-update {
             text-align: center;
             color: rgba(255,255,255,0.7);
@@ -189,6 +218,28 @@
         <!-- SEÇÃO AVALIAÇÕES -->
         <div style="margin-bottom: 40px;">
             <h2 class="section-title">🚗 Avaliações de Veículos</h2>
+
+            <!-- Seletor de Períodos -->
+            <div class="period-selector" id="periodSelector">
+                <button class="period-btn active" data-period="30">Últimos 30 dias</button>
+                <button class="period-btn" data-period="15">Últimos 15 dias</button>
+                <button class="period-btn" data-period="90">Últimos 3 meses</button>
+                <button class="period-btn" data-period="180">Últimos 6 meses</button>
+                <button class="period-btn" data-period="all">Período completo</button>
+            </div>
+
+            <!-- Gráfico por Dia do Mês -->
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: white; font-size: 18px; margin-bottom: 15px;">📈 Avaliações por Dia (Mês Atual)</h3>
+                <div class="chart-grid">
+                    <div class="chart-card" style="grid-column: 1 / -1;">
+                        <div class="chart-title">Evolução Diária - Grupo San Marino</div>
+                        <div class="chart-container" style="height: 350px;">
+                            <canvas id="chartLinhaGrupo"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Grupo San Marino -->
             <div style="margin-bottom: 30px;">
@@ -316,6 +367,9 @@
 
         // DADOS DE AVALIAÇÕES
         let AVALIACOES_LOJAS = {};
+        let AVALIACOES_POR_DIA = {}; // Para gráfico de linha
+        let PERIODO_SELECIONADO = 30; // Padrão: últimos 30 dias
+
         LOJAS_ORDEM.forEach(loja => {
             AVALIACOES_LOJAS[loja] = { count: 0, conversion: 0, ticket: 0 };
         });
@@ -346,8 +400,26 @@
             return Math.round(((promotoras - detratoras) / total) * 100);
         }
 
+        function filtrarPorPeriodo(data) {
+            const hoje = new Date();
+            const dataDado = new Date(data);
+            const diff = Math.floor((hoje - dataDado) / (1000 * 60 * 60 * 24));
+
+            if (PERIODO_SELECIONADO === 'all') return true;
+            return diff <= PERIODO_SELECIONADO;
+        }
+
+        function extrairData(texto) {
+            // Tenta extrair data em formatos comuns
+            const regex = /(\d{1,2}\/\d{1,2}\/\d{4})|(\d{4}-\d{2}-\d{2})/;
+            const match = texto.match(regex);
+            return match ? match[0] : null;
+        }
+
         // Carrega dados das planilhas Google Sheets
         async function carregarDadosAvaliacoes() {
+            AVALIACOES_POR_DIA = {}; // Reseta dados diários
+
             for (const [lojaName, sheetId] of Object.entries(SHEET_IDS)) {
                 try {
                     const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
@@ -361,7 +433,34 @@
                     ).filter(row => row.some(cell => cell));
 
                     if (rows && rows.length > 1) {
-                        const count = rows.length - 1;
+                        let count = 0;
+                        // Processa cada linha para contar e extrair datas
+                        for (let i = 1; i < rows.length; i++) {
+                            const row = rows[i];
+                            // Procura por data em qualquer coluna
+                            let data = null;
+                            for (let j = 0; j < row.length; j++) {
+                                const possivel = extrairData(row[j]);
+                                if (possivel) {
+                                    data = possivel;
+                                    break;
+                                }
+                            }
+
+                            // Se encontrou data e passa no filtro, conta
+                            if (data && filtrarPorPeriodo(data)) {
+                                count++;
+                                // Conta por dia
+                                if (!AVALIACOES_POR_DIA[data]) {
+                                    AVALIACOES_POR_DIA[data] = 0;
+                                }
+                                AVALIACOES_POR_DIA[data]++;
+                            } else if (!data) {
+                                // Se não tem data, conta mesmo assim
+                                count++;
+                            }
+                        }
+
                         AVALIACOES_LOJAS[lojaName] = {
                             count: count,
                             conversion: 0,
@@ -392,6 +491,54 @@
             });
 
             container.innerHTML = html;
+        }
+
+        function criarGraficoLinhaDia() {
+            // Ordena os dias e cria arrays para o gráfico
+            const diasOrdenados = Object.keys(AVALIACOES_POR_DIA).sort();
+            const labels = diasOrdenados.slice(-31); // Últimos 31 dias
+            const dados = labels.map(dia => AVALIACOES_POR_DIA[dia] || 0);
+
+            const ctxLinha = document.getElementById('chartLinhaGrupo')?.getContext('2d');
+            if (ctxLinha && charts.linha) {
+                charts.linha.destroy();
+            }
+            if (ctxLinha) {
+                charts.linha = new Chart(ctxLinha, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Avaliações por Dia',
+                            data: dados,
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#667eea',
+                            pointBorderColor: 'white',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true, position: 'top' },
+                            filler: { propagate: true }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { stepSize: 1 }
+                            }
+                        }
+                    }
+                });
+            }
         }
 
         function criarGraficosNPS() {
@@ -557,12 +704,34 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await carregarDadosAvaliacoes();
             criarGraficosAvaliacoes();
+            criarGraficoLinhaDia();
             criarGraficosNPS();
             criarGraficosGrupo();
             atualizarHora();
+
+            // Event listeners para seletor de períodos
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    // Remove classe active de todos os botões
+                    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+                    // Adiciona classe active ao botão clicado
+                    e.target.classList.add('active');
+
+                    const periodo = e.target.dataset.period;
+                    PERIODO_SELECIONADO = periodo === 'all' ? 'all' : parseInt(periodo);
+
+                    // Recarrega dados com novo período
+                    await carregarDadosAvaliacoes();
+                    criarGraficosAvaliacoes();
+                    criarGraficoLinhaDia();
+                    criarGraficosGrupo();
+                });
+            });
+
             setInterval(async () => {
                 await carregarDadosAvaliacoes();
                 criarGraficosAvaliacoes();
+                criarGraficoLinhaDia();
                 criarGraficosGrupo();
                 atualizarHora();
             }, 30000);
