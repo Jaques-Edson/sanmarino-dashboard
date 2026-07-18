@@ -393,12 +393,21 @@
     </div>
 
     <script>
-        // DADOS DE AVALIAÇÕES (Estrutura para conectar com Google Sheets)
-        const AVALIACOES_LOJAS = {
-            'Matriz': { count: 75, conversion: 28.5, ticket: 12500 },
-            'Zona Sul': { count: 74, conversion: 25.6, ticket: 11800 },
+        // IDs DAS PLANILHAS GOOGLE SHEETS (Avaliações)
+        const SHEET_IDS = {
+            'Matriz': '1L_ZY3iwS-2fclFK82JGsSbLiH1AwjFzi',
+            'Zona Sul': '1BE4hImnS7mjKQB0WYXI0znOb2j-T-OpK',
+            'Gravataí': '1ONfrLfrHRiFF73ru5DFfkRv4dkkJDliS',
+            'Viamão': '15BlPDdYf7IHzwJgwKMRMS_SXwSHv8KYF',
+            'Multimarcas': '1aiUyjAAtDl4oi11Sa3wsHoSrEb1nGHxj'
+        };
+
+        // DADOS DE AVALIAÇÕES (Carrega do Google Sheets)
+        let AVALIACOES_LOJAS = {
+            'Matriz': { count: 0, conversion: 0, ticket: 0 },
+            'Zona Sul': { count: 0, conversion: 0, ticket: 0 },
             'Gravataí': { count: 0, conversion: 0, ticket: 0 },
-            'Viamão': { count: 51, conversion: 21.5, ticket: 10200 },
+            'Viamão': { count: 0, conversion: 0, ticket: 0 },
             'Multimarcas': { count: 0, conversion: 0, ticket: 0 }
         };
 
@@ -431,6 +440,48 @@
 
         function calcularNPS(promotoras, detratoras, total) {
             return Math.round(((promotoras - detratoras) / total) * 100);
+        }
+
+        // Carrega dados das planilhas Google Sheets
+        async function carregarDadosAvaliacoes() {
+            for (const [lojaName, sheetId] of Object.entries(SHEET_IDS)) {
+                try {
+                    const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
+                    const response = await fetch(csvUrl);
+
+                    if (!response.ok) throw new Error(`Erro ${response.status}`);
+
+                    const csv = await response.text();
+                    const rows = csv.split('\n').map(line =>
+                        line.split(',').map(cell => cell.trim().replace(/^"(.*)"$/, '$1'))
+                    ).filter(row => row.some(cell => cell));
+
+                    if (rows && rows.length > 1) {
+                        const count = rows.length - 1;
+                        let converted = 0;
+                        let totalTicket = 0;
+
+                        for (let i = 1; i < rows.length; i++) {
+                            const row = rows[i];
+                            if (row.length > 5 && row[5] && row[5].toLowerCase().includes('sim')) {
+                                converted++;
+                            }
+                            if (row.length > 0 && row[row.length - 1]) {
+                                const value = parseFloat(row[row.length - 1]);
+                                if (!isNaN(value)) totalTicket += value;
+                            }
+                        }
+
+                        AVALIACOES_LOJAS[lojaName] = {
+                            count: count,
+                            conversion: ((converted / count) * 100).toFixed(1),
+                            ticket: count > 0 ? Math.round(totalTicket / count) : 0
+                        };
+                    }
+                } catch (error) {
+                    console.warn(`Erro ao carregar ${lojaName}:`, error);
+                }
+            }
         }
 
         function criarCardAvaliacoes() {
@@ -707,11 +758,13 @@
         }
 
         // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            await carregarDadosAvaliacoes(); // Carrega dados das planilhas
             criarCardAvaliacoes();
             criarCardNPS();
             atualizarHora();
             setInterval(atualizarHora, 60000); // Atualiza a hora a cada minuto
+            setInterval(carregarDadosAvaliacoes, 30000); // Atualiza dados a cada 30 segundos
         });
 
         // Fechar modal ao clicar fora
