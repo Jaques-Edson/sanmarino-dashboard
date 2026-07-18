@@ -365,6 +365,12 @@
         const LOJAS_ORDEM = ['Matriz', 'Zona Sul', 'Gravataí', 'Viamão', 'Multimarcas'];
         const LOJAS_NPS_ORDEM = ['Matriz', 'Zona Sul', 'Gravataí', 'Viamão'];
 
+        // Metas de NPS por categoria
+        const METAS_NPS = {
+            vendas: 94,
+            pos_vendas: 90
+        };
+
         // DADOS DE AVALIAÇÕES
         let AVALIACOES_LOJAS = {};
         let AVALIACOES_POR_DIA = {}; // Para gráfico de linha
@@ -398,6 +404,16 @@
 
         function calcularNPS(promotoras, detratoras, total) {
             return Math.round(((promotoras - detratoras) / total) * 100);
+        }
+
+        function getCorNPS(nps, tipo) {
+            const meta = tipo === 'vendas' ? METAS_NPS.vendas : METAS_NPS.pos_vendas;
+            return nps >= meta ? '#28a745' : '#dc3545'; // Verde se atingiu, Vermelho se não
+        }
+
+        function getStatusNPS(nps, tipo) {
+            const meta = tipo === 'vendas' ? METAS_NPS.vendas : METAS_NPS.pos_vendas;
+            return nps >= meta ? '✅ Meta atingida' : '❌ Abaixo da meta';
         }
 
         function filtrarPorPeriodo(data) {
@@ -552,20 +568,24 @@
 
                 const totalVendas = vendas.promotoras + vendas.neutras + vendas.detratoras;
                 const npsVendas = calcularNPS(vendas.promotoras, vendas.detratoras, totalVendas);
+                const corVendas = getCorNPS(npsVendas, 'vendas');
 
                 const totalPosvenda = posvenda.promotoras + posvenda.neutras + posvenda.detratoras;
                 const npsPosvenda = calcularNPS(posvenda.promotoras, posvenda.detratoras, totalPosvenda);
+                const corPosvenda = getCorNPS(npsPosvenda, 'pos_vendas');
 
                 html += `
                     <div class="chart-card">
                         <div class="chart-title">${loja}</div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                             <div style="text-align: center; padding: 10px; background: #f5f5f5; border-radius: 6px;">
-                                <div style="font-size: 24px; font-weight: 700; color: #667eea;">${npsVendas}</div>
+                                <div style="font-size: 24px; font-weight: 700; color: ${corVendas};">${npsVendas}</div>
+                                <div style="font-size: 10px; color: ${corVendas}; font-weight: 600; margin-top: 4px;">${npsVendas >= METAS_NPS.vendas ? '✅' : '❌'}</div>
                                 <div style="font-size: 11px; color: #999;">Vendas</div>
                             </div>
                             <div style="text-align: center; padding: 10px; background: #f5f5f5; border-radius: 6px;">
-                                <div style="font-size: 24px; font-weight: 700; color: #667eea;">${npsPosvenda}</div>
+                                <div style="font-size: 24px; font-weight: 700; color: ${corPosvenda};">${npsPosvenda}</div>
+                                <div style="font-size: 10px; color: ${corPosvenda}; font-weight: 600; margin-top: 4px;">${npsPosvenda >= METAS_NPS.pos_vendas ? '✅' : '❌'}</div>
                                 <div style="font-size: 11px; color: #999;">Pós-Vendas</div>
                             </div>
                         </div>
@@ -631,7 +651,16 @@
 
             const totalVendas = promVendas + neuVendas + detVendas;
             const npsVendas = calcularNPS(promVendas, detVendas, totalVendas);
-            document.getElementById('npsGrupoVendas').textContent = npsVendas;
+            const corVendas = getCorNPS(npsVendas, 'vendas');
+            const statusVendas = getStatusNPS(npsVendas, 'vendas');
+            const elemVendas = document.getElementById('npsGrupoVendas');
+            elemVendas.textContent = npsVendas;
+            elemVendas.style.color = corVendas;
+            elemVendas.parentElement.innerHTML = `
+                <div style="font-size: 48px; font-weight: 700; color: ${corVendas}; margin: 20px 0;">${npsVendas}</div>
+                <div style="color: ${corVendas}; font-size: 13px; font-weight: 600; margin-bottom: 10px;">${statusVendas}</div>
+                <div style="color: #999; font-size: 14px;">Meta: ${METAS_NPS.vendas}</div>
+            `;
 
             const ctxVendas = document.getElementById('chartGrupoVendas')?.getContext('2d');
             if (ctxVendas && charts.vendas) {
@@ -667,7 +696,16 @@
 
             const totalPos = promPos + neuPos + detPos;
             const npsPos = calcularNPS(promPos, detPos, totalPos);
-            document.getElementById('npsGrupoPosvenda').textContent = npsPos;
+            const corPos = getCorNPS(npsPos, 'pos_vendas');
+            const statusPos = getStatusNPS(npsPos, 'pos_vendas');
+            const elemPos = document.getElementById('npsGrupoPosvenda');
+            elemPos.textContent = npsPos;
+            elemPos.style.color = corPos;
+            elemPos.parentElement.innerHTML = `
+                <div style="font-size: 48px; font-weight: 700; color: ${corPos}; margin: 20px 0;">${npsPos}</div>
+                <div style="color: ${corPos}; font-size: 13px; font-weight: 600; margin-bottom: 10px;">${statusPos}</div>
+                <div style="color: #999; font-size: 14px;">Meta: ${METAS_NPS.pos_vendas}</div>
+            `;
 
             const ctxPos = document.getElementById('chartGrupoPosvenda')?.getContext('2d');
             if (ctxPos && charts.posvenda) {
