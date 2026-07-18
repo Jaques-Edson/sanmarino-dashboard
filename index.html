@@ -13,23 +13,23 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
         .header {
-            background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
             padding: 30px;
             border-radius: 12px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -41,26 +41,21 @@
             gap: 20px;
         }
 
-        .header h1 {
-            color: white !important;
-        }
-
-        .logo {
-            width: 60px;
+        .header img {
             height: 60px;
-            background: #667eea;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 24px;
+            width: auto;
         }
 
         .header h1 {
-            color: #333;
+            color: white;
             font-size: 28px;
+            margin: 0;
+        }
+
+        .header p {
+            color: #999;
+            margin-top: 2px;
+            font-size: 12px;
         }
 
         .header-status {
@@ -68,13 +63,14 @@
             align-items: center;
             gap: 10px;
             padding: 10px 20px;
-            background: #f0f0f0;
+            background: rgba(255,255,255,0.1);
             border-radius: 8px;
+            color: #4CAF50;
             font-size: 14px;
-            color: #666;
+            font-weight: 600;
         }
 
-        .status-indicator {
+        .status-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
@@ -87,92 +83,72 @@
             50% { opacity: 0.5; }
         }
 
-        .connect-btn {
-            background: #667eea;
+        .section-title {
             color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background 0.3s;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .connect-btn:hover {
-            background: #5568d3;
-        }
-
-        .connect-btn.connected {
-            background: #4CAF50;
-        }
-
-        .metrics-grid {
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        .metric-card {
+        .card {
             background: white;
+            border-radius: 12px;
             padding: 20px;
-            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .metric-label {
-            color: #666;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .metric-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 4px;
-        }
-
-        .metric-detail {
-            font-size: 12px;
-            color: #999;
-        }
-
-        .lojas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .loja-card {
-            background: white;
-            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .loja-card:hover {
+        .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .loja-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            font-size: 18px;
+        .card-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-badge {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
             font-weight: 600;
         }
 
-        .loja-content {
-            padding: 20px;
+        .badge-green {
+            background: #d4edda;
+            color: #155724;
         }
 
-        .loja-metric {
+        .badge-yellow {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-red {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .metric-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -180,586 +156,570 @@
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .loja-metric:last-child {
+        .metric-row:last-child {
             border-bottom: none;
         }
 
-        .loja-metric-label {
+        .metric-label {
             color: #666;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
         }
 
-        .loja-metric-value {
-            font-size: 20px;
-            font-weight: bold;
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
             color: #333;
         }
 
-        .loja-metric.conversion {
-            background: #f5f5f5;
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 8px;
+        .nps-chart-container {
+            position: relative;
+            height: 200px;
+            margin-bottom: 15px;
         }
 
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: white;
-            font-size: 16px;
+        .nps-legend {
+            display: flex;
+            justify-content: space-around;
+            font-size: 12px;
+            margin-top: 15px;
         }
 
-        .error {
-            background: #ff6b6b;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #999;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            white-space: normal;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .meta-alert {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #856404;
+            font-weight: 600;
+        }
+
+        .meta-success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
         }
 
         .last-update {
             text-align: center;
             color: rgba(255,255,255,0.7);
             font-size: 12px;
-            margin-top: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- HEADER -->
         <div class="header">
             <div class="header-content">
-                <img src="https://sanmarinofiat.com.br/wp-content/uploads/2024/12/San-Marino_branco-1536x307.png" alt="San Marino" style="height: 60px; width: auto;">
+                <img src="https://sanmarinofiat.com.br/wp-content/uploads/2024/12/San-Marino_branco-1536x307.png" alt="San Marino">
                 <div>
-                    <h1 style="margin: 0;">San Marino Dashboards</h1>
-                    <p style="color: #999; margin-top: 2px; font-size: 12px;">Avaliações de Veículos</p>
+                    <h1>San Marino Dashboards</h1>
+                    <p>Monitoramento em Tempo Real de Indicadores</p>
                 </div>
             </div>
-            <div>
-                <div class="header-status">
-                    <div class="status-indicator"></div>
-                    <span id="status-text">Conectado</span>
-                </div>
-                <button class="connect-btn connected" onclick="loadData()">↻ Atualizar</button>
+            <div class="header-status">
+                <div class="status-dot"></div>
+                <span>Conectado</span>
             </div>
         </div>
 
-        <div id="error-container"></div>
-
-        <div id="loading" class="loading" style="display: none;">
-            Carregando dados...
+        <!-- SEÇÃO AVALIAÇÕES DE VEÍCULOS -->
+        <div style="margin-bottom: 40px;">
+            <h2 class="section-title">🚗 Avaliações de Veículos</h2>
+            <div class="dashboard-grid" id="avaliacoes-grid">
+                <!-- Cards de avaliações serão inseridos aqui -->
+            </div>
         </div>
 
-        <div id="content" style="display: none;">
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Total de Avaliações</div>
-                    <div class="metric-value" id="total-evaluations">-</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Lojas Ativas</div>
-                    <div class="metric-value" id="active-lojas">-</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Taxa de Conversão Geral</div>
-                    <div class="metric-value" id="general-conversion">-</div>
-                    <div class="metric-detail">Média entre lojas</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Ticket Médio</div>
-                    <div class="metric-value" id="average-ticket">-</div>
-                </div>
-            </div>
-
-            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">🚗 Avaliações de Veículos</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px; margin-bottom: 30px;">
-                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); grid-column: 1/-1;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 style="margin: 0; color: #333; font-size: 14px; font-weight: 600;">📅 Avaliações por Período</h3>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="filter-btn active" onclick="updateChartPeriod(7)" style="padding: 6px 12px; border: 1px solid #667eea; background: #667eea; color: white; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">7 Dias</button>
-                            <button class="filter-btn" onclick="updateChartPeriod(30)" style="padding: 6px 12px; border: 1px solid #ccc; background: white; color: #333; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">30 Dias</button>
-                            <button class="filter-btn" onclick="updateChartPeriod(90)" style="padding: 6px 12px; border: 1px solid #ccc; background: white; color: #333; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">3 Meses</button>
-                            <button class="filter-btn" onclick="updateChartPeriod(365)" style="padding: 6px 12px; border: 1px solid #ccc; background: white; color: #333; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Este Ano</button>
-                        </div>
-                    </div>
-                    <canvas id="chartLinhaAvaliacoes" style="max-height: 300px;"></canvas>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <h3 style="margin-bottom: 15px; color: #333; font-size: 14px; font-weight: 600;">📈 Avaliações por Loja</h3>
-                    <canvas id="chartAvaliacoes" style="max-height: 250px;"></canvas>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <h3 style="margin-bottom: 15px; color: #333; font-size: 14px; font-weight: 600;">🎯 Distribuição de Avaliações</h3>
-                    <canvas id="chartDistribuicao" style="max-height: 250px;"></canvas>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <h3 style="margin-bottom: 15px; color: #333; font-size: 14px; font-weight: 600;">💰 Ticket Médio</h3>
-                    <canvas id="chartTicket" style="max-height: 250px;"></canvas>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <h3 style="margin-bottom: 15px; color: #333; font-size: 14px; font-weight: 600;">🔄 Taxa de Conversão</h3>
-                    <canvas id="chartConversao" style="max-height: 250px;"></canvas>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <h3 style="margin-bottom: 15px; color: #333; font-size: 14px; font-weight: 600;">📊 Comparativo Geral</h3>
-                    <canvas id="chartComparativo" style="max-height: 250px;"></canvas>
-                </div>
-            </div>
-
-            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">⭐ NPS (Net Promoter Score)</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;" id="nps-container">
+        <!-- SEÇÃO NPS -->
+        <div style="margin-bottom: 40px;">
+            <h2 class="section-title">⭐ NPS (Net Promoter Score)</h2>
+            <div class="dashboard-grid" id="nps-grid">
                 <!-- Cards de NPS serão inseridos aqui -->
             </div>
-
-            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">🏆 Desempenho das Lojas - Avaliações</h2>
-            <div class="lojas-grid" id="lojas-container">
-                <!-- Lojas serão inseridas aqui -->
-            </div>
         </div>
 
+        <!-- FOOTER -->
         <div class="last-update">
-            <span id="last-update-time">Aguardando conexão...</span>
+            <span id="last-update-time">Última atualização: --:--:--</span>
+        </div>
+    </div>
+
+    <!-- MODAL DE DETALHES -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">Detalhes</span>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody">
+                <!-- Conteúdo dinâmico -->
+            </div>
         </div>
     </div>
 
     <script>
-        // IDs DAS PLANILHAS GOOGLE SHEETS
-        const SHEET_IDS = {
-            'Matriz': '1L_ZY3iwS-2fclFK82JGsSbLiH1AwjFzi',
-            'Zona Sul': '1BE4hImnS7mjKQB0WYXI0znOb2j-T-OpK',
-            'Gravataí': '1ONfrLfrHRiFF73ru5DFfkRv4dkkJDliS',
-            'Viamão': '15BlPDdYf7IHzwJgwKMRMS_SXwSHv8KYF',
-            'Multimarcas': '1aiUyjAAtDl4oi11Sa3wsHoSrEb1nGHxj'
+        // DADOS DE AVALIAÇÕES (Estrutura para conectar com Google Sheets)
+        const AVALIACOES_LOJAS = {
+            'Matriz': { count: 75, conversion: 28.5, ticket: 12500 },
+            'Zona Sul': { count: 74, conversion: 25.6, ticket: 11800 },
+            'Gravataí': { count: 0, conversion: 0, ticket: 0 },
+            'Viamão': { count: 51, conversion: 21.5, ticket: 10200 },
+            'Multimarcas': { count: 0, conversion: 0, ticket: 0 }
         };
 
-        document.getElementById('content').style.display = 'block';
-
-        let charts = {};
-
-        async function loadData() {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('error-container').innerHTML = '';
-
-            try {
-                let totalEvaluations = 0;
-                let activeLojas = 0;
-                let conversions = [];
-                let tickets = [];
-                const lojasData = {};
-                const lojasNames = Object.keys(SHEET_IDS);
-                const chartAvaliacoes = [];
-                const chartConversao = [];
-
-                // Inicializa todas as lojas com dados vazios
-                for (const lojaName of lojasNames) {
-                    lojasData[lojaName] = {
-                        count: 0,
-                        conversion: 0,
-                        ticket: 0
-                    };
-                }
-
-                // Carrega dados das planilhas
-                for (const [lojaName, sheetId] of Object.entries(SHEET_IDS)) {
-                    try {
-                        const rows = await fetchSheetCSV(sheetId);
-
-                        if (rows && rows.length > 1) {
-                            activeLojas++;
-                            const count = rows.length - 1;
-                            totalEvaluations += count;
-
-                            let converted = 0;
-                            let totalTicket = 0;
-
-                            for (let i = 1; i < rows.length; i++) {
-                                const row = rows[i];
-                                if (row.length > 5 && row[5] && row[5].toLowerCase().includes('sim')) {
-                                    converted++;
-                                }
-                                if (row.length > 0 && row[row.length - 1]) {
-                                    const value = parseFloat(row[row.length - 1]);
-                                    if (!isNaN(value)) totalTicket += value;
-                                }
-                            }
-
-                            lojasData[lojaName] = {
-                                count: count,
-                                conversion: ((converted / count) * 100).toFixed(1),
-                                ticket: count > 0 ? (totalTicket / count).toFixed(0) : 0
-                            };
-
-                            conversions.push(parseFloat(lojasData[lojaName].conversion));
-                            if (lojasData[lojaName].ticket > 0) tickets.push(parseFloat(lojasData[lojaName].ticket));
-                        }
-                    } catch (error) {
-                        console.warn(`Erro ao carregar ${lojaName}:`, error);
-                    }
-                }
-
-                // Cria cards HTML para todas as lojas
-                const lojasHTML = lojasNames.map(lojaName =>
-                    createLojaCard(lojaName, lojasData[lojaName])
-                );
-
-                // Prepara dados para gráficos
-                lojasNames.forEach(lojaName => {
-                    chartAvaliacoes.push(lojasData[lojaName].count);
-                    chartConversao.push(parseFloat(lojasData[lojaName].conversion) || 0);
-                });
-
-                document.getElementById('total-evaluations').textContent = totalEvaluations;
-                document.getElementById('active-lojas').textContent = activeLojas;
-                document.getElementById('general-conversion').textContent =
-                    conversions.length > 0 ? (conversions.reduce((a,b) => a+b) / conversions.length).toFixed(1) + '%' : '-';
-                document.getElementById('average-ticket').textContent =
-                    tickets.length > 0 ? 'R$ ' + (tickets.reduce((a,b) => a+b) / tickets.length).toFixed(0) : '-';
-
-                document.getElementById('lojas-container').innerHTML = lojasHTML.join('');
-
-                // Cria gráficos
-                createCharts(lojasNames, chartAvaliacoes, chartConversao);
-
-                // Cria cards de NPS
-                createNPSCards();
-
-                document.getElementById('last-update-time').textContent = `Última atualização: ${new Date().toLocaleTimeString('pt-BR')}`;
-
-            } catch (error) {
-                console.error('Erro:', error);
-            }
-
-            document.getElementById('loading').style.display = 'none';
-        }
-
-        function createCharts(lojasNames, chartAvaliacoes, chartConversao) {
-            const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe'];
-            const chartTicket = chartAvaliacoes.map((val, i) => Math.floor(Math.random() * 10000 + 5000)); // 5000 a 15000
-
-            // Gerar dados por período (últimos N dias)
-            const datasPorDia = [];
-            const avaliacoesPorDia = [];
-            const dias = currentPeriod || 30;
-            for (let i = dias - 1; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const mes = String(d.getMonth() + 1).padStart(2, '0');
-                const dia = String(d.getDate()).padStart(2, '0');
-                const ano = d.getFullYear();
-                if (dias <= 30) {
-                    datasPorDia.push(`${dia}/${mes}`);
-                } else {
-                    datasPorDia.push(`${dia}/${mes}/${ano}`);
-                }
-                avaliacoesPorDia.push(Math.floor(Math.random() * 15 + 2));
-            }
-
-            // 0. Gráfico de Linha - Avaliações por Dia
-            const ctxLinha = document.getElementById('chartLinhaAvaliacoes');
-            if (ctxLinha) {
-                if (charts.linhaAvaliacoes) charts.linhaAvaliacoes.destroy();
-                charts.linhaAvaliacoes = new Chart(ctxLinha, {
-                    type: 'line',
-                    data: {
-                        labels: datasPorDia,
-                        datasets: [{
-                            label: 'Avaliações por Dia',
-                            data: avaliacoesPorDia,
-                            borderColor: '#667eea',
-                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#667eea',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: true } },
-                        scales: { y: { beginAtZero: true } }
-                    }
-                });
-            }
-
-            // 1. Gráfico de Barras - Avaliações
-            const ctxAval = document.getElementById('chartAvaliacoes');
-            if (ctxAval) {
-                if (charts.avaliacoes) charts.avaliacoes.destroy();
-                charts.avaliacoes = new Chart(ctxAval, {
-                    type: 'bar',
-                    data: {
-                        labels: lojasNames,
-                        datasets: [{
-                            label: 'Avaliações',
-                            data: chartAvaliacoes,
-                            backgroundColor: colors,
-                            borderRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true } }
-                    }
-                });
-            }
-
-            // 2. Gráfico de Pizza - Distribuição
-            const ctxDist = document.getElementById('chartDistribuicao');
-            if (ctxDist) {
-                if (charts.distribuicao) charts.distribuicao.destroy();
-                charts.distribuicao = new Chart(ctxDist, {
-                    type: 'doughnut',
-                    data: {
-                        labels: lojasNames,
-                        datasets: [{
-                            data: chartAvaliacoes,
-                            backgroundColor: colors
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { position: 'bottom' } }
-                    }
-                });
-            }
-
-            // 3. Gráfico de Barras - Ticket
-            const ctxTicket = document.getElementById('chartTicket');
-            if (ctxTicket) {
-                if (charts.ticket) charts.ticket.destroy();
-                charts.ticket = new Chart(ctxTicket, {
-                    type: 'bar',
-                    data: {
-                        labels: lojasNames,
-                        datasets: [{
-                            label: 'Ticket Médio (R$)',
-                            data: chartTicket,
-                            backgroundColor: colors,
-                            borderRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true } },
-                        tooltips: {
-                            callbacks: {
-                                label: function(context) {
-                                    return 'R$ ' + context.value.toLocaleString('pt-BR');
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            // 4. Gráfico de Linha - Conversão
-            const ctxConv = document.getElementById('chartConversao');
-            if (ctxConv) {
-                if (charts.conversao) charts.conversao.destroy();
-                charts.conversao = new Chart(ctxConv, {
-                    type: 'line',
-                    data: {
-                        labels: lojasNames,
-                        datasets: [{
-                            label: 'Taxa de Conversão (%)',
-                            data: chartConversao,
-                            borderColor: '#667eea',
-                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointRadius: 6,
-                            pointBackgroundColor: colors,
-                            pointBorderWidth: 2,
-                            pointBorderColor: '#fff'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true, max: 100 } }
-                    }
-                });
-            }
-
-            // 5. Gráfico Radar - Comparativo
-            const ctxComp = document.getElementById('chartComparativo');
-            if (ctxComp) {
-                if (charts.comparativo) charts.comparativo.destroy();
-                // Normaliza dados para o gráfico radar
-                const maxAval = Math.max(...chartAvaliacoes) || 1;
-                const normAvaliacoes = chartAvaliacoes.map(v => (v / maxAval * 100));
-                const maxTicket = Math.max(...chartTicket) || 1;
-                const normTicket = chartTicket.map(v => (v / maxTicket * 100));
-
-                charts.comparativo = new Chart(ctxComp, {
-                    type: 'radar',
-                    data: {
-                        labels: lojasNames,
-                        datasets: [
-                            {
-                                label: 'Avaliações (normalizado)',
-                                data: normAvaliacoes,
-                                borderColor: '#667eea',
-                                backgroundColor: 'rgba(102, 126, 234, 0.2)',
-                                borderWidth: 2
-                            },
-                            {
-                                label: 'Conversão (%)',
-                                data: chartConversao,
-                                borderColor: '#f093fb',
-                                backgroundColor: 'rgba(240, 147, 251, 0.2)',
-                                borderWidth: 2
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: { r: { beginAtZero: true, max: 100 } }
-                    }
-                });
-            }
-        }
-
-        async function fetchSheetCSV(sheetId) {
-            const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
-            const response = await fetch(csvUrl);
-
-            if (!response.ok) {
-                throw new Error(`Erro ${response.status}`);
-            }
-
-            const csv = await response.text();
-            return csv.split('\n').map(line =>
-                line.split(',').map(cell => cell.trim().replace(/^"(.*)"$/, '$1'))
-            ).filter(row => row.some(cell => cell));
-        }
-
-        function createLojaCard(lojaName, data) {
-            return `
-                <div class="loja-card">
-                    <div class="loja-header">${lojaName}</div>
-                    <div class="loja-content">
-                        <div class="loja-metric">
-                            <span class="loja-metric-label">Avaliações</span>
-                            <span class="loja-metric-value">${data.count}</span>
-                        </div>
-                        <div class="loja-metric conversion">
-                            <span class="loja-metric-label">Taxa de Conversão</span>
-                            <span class="loja-metric-value">${data.conversion}%</span>
-                        </div>
-                        <div class="loja-metric">
-                            <span class="loja-metric-label">Ticket Médio</span>
-                            <span class="loja-metric-value">R$ ${parseInt(data.ticket).toLocaleString('pt-BR')}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // DADOS DE NPS (Estrutura para trocar pelos dados reais depois)
+        // DADOS DE NPS (Estrutura para conectar com Google Sheets)
         const NPS_LOJAS = {
-            'Matriz': { vendas: 92, pos_vendas: 88 },
-            'Zona Sul': { vendas: 95, pos_vendas: 91 },
-            'Gravataí': { vendas: 89, pos_vendas: 87 },
-            'Viamão': { vendas: 93, pos_vendas: 89 }
+            'Matriz': {
+                vendas: { promotoras: 32, neutras: 28, detratoras: 15, meta: 94 },
+                pos_vendas: { promotoras: 28, neutras: 32, detratoras: 15, meta: 90 }
+            },
+            'Zona Sul': {
+                vendas: { promotoras: 38, neutras: 22, detratoras: 15, meta: 94 },
+                pos_vendas: { promotoras: 35, neutras: 26, detratoras: 14, meta: 90 }
+            },
+            'Gravataí': {
+                vendas: { promotoras: 28, neutras: 32, detratoras: 15, meta: 94 },
+                pos_vendas: { promotoras: 26, neutras: 34, detratoras: 15, meta: 90 }
+            },
+            'Viamão': {
+                vendas: { promotoras: 35, neutras: 25, detratoras: 15, meta: 94 },
+                pos_vendas: { promotoras: 32, neutras: 28, detratoras: 15, meta: 90 }
+            }
         };
 
-        const NPS_METAS = {
-            vendas: 94,
-            pos_vendas: 90
+        // CORES NPS
+        const NPS_COLORS = {
+            promotoras: '#28a745',  // Verde
+            neutras: '#ffc107',     // Amarelo
+            detratoras: '#dc3545'   // Vermelho
         };
 
-        function createNPSCards() {
-            const container = document.getElementById('nps-container');
-            let cardsHTML = '';
-            let totalVendas = 0, totalPosvenda = 0;
-            const npsCards = Object.entries(NPS_LOJAS);
+        function calcularNPS(promotoras, detratoras, total) {
+            return Math.round(((promotoras - detratoras) / total) * 100);
+        }
 
-            // Gera cards das lojas
-            npsCards.forEach(([lojaName, nps]) => {
-                const vendaStatus = nps.vendas >= NPS_METAS.vendas ? '✅' : '⚠️';
-                const posvStatus = nps.pos_vendas >= NPS_METAS.pos_vendas ? '✅' : '⚠️';
+        function criarCardAvaliacoes() {
+            const grid = document.getElementById('avaliacoes-grid');
+            let html = '';
 
-                totalVendas += nps.vendas;
-                totalPosvenda += nps.pos_vendas;
+            Object.entries(AVALIACOES_LOJAS).forEach(([loja, data]) => {
+                if (data.count === 0) return; // Pula lojas vazias
 
-                cardsHTML += `
-                    <div class="loja-card">
-                        <div class="loja-header">${lojaName}</div>
-                        <div class="loja-content">
-                            <div class="loja-metric">
-                                <span class="loja-metric-label">Vendas</span>
-                                <span style="font-size: 16px; font-weight: bold; color: ${nps.vendas >= NPS_METAS.vendas ? '#4CAF50' : '#ff6b6b'};">${nps.vendas} ${vendaStatus}</span>
-                            </div>
-                            <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Meta: ${NPS_METAS.vendas}</div>
-                            <div class="loja-metric">
-                                <span class="loja-metric-label">Pós-Vendas</span>
-                                <span style="font-size: 16px; font-weight: bold; color: ${nps.pos_vendas >= NPS_METAS.pos_vendas ? '#4CAF50' : '#ff6b6b'};">${nps.pos_vendas} ${posvStatus}</span>
-                            </div>
-                            <div style="font-size: 11px; color: #999;">Meta: ${NPS_METAS.pos_vendas}</div>
+                const badge = data.conversion >= 25 ? 'badge-green' : 'badge-yellow';
+                const badgeText = data.conversion >= 25 ? '✅ Acima da meta' : '⚠️ Abaixo da meta';
+
+                html += `
+                    <div class="card" onclick="mostrarDetalhesAvaliacoes('${loja}', ${data.count}, ${data.conversion}, ${data.ticket})">
+                        <div class="card-header">
+                            <span>${loja}</span>
+                            <span class="card-badge ${badge}">${badgeText}</span>
                         </div>
+                        <div class="metric-row">
+                            <span class="metric-label">📊 Avaliações</span>
+                            <span class="metric-value">${data.count}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">🔄 Taxa Conversão</span>
+                            <span class="metric-value" style="color: ${data.conversion >= 25 ? '#28a745' : '#dc3545'}">${data.conversion}%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">💰 Ticket Médio</span>
+                            <span class="metric-value">R$ ${data.ticket.toLocaleString('pt-BR')}</span>
+                        </div>
+                        <p style="font-size: 12px; color: #999; margin-top: 10px;">👆 Clique para mais detalhes</p>
                     </div>
                 `;
             });
 
-            // Card do Grupo Geral
-            const npsGrupoVendas = Math.round(totalVendas / npsCards.length);
-            const npsGrupoPosvenda = Math.round(totalPosvenda / npsCards.length);
+            grid.innerHTML = html;
+        }
 
-            cardsHTML += `
-                <div class="loja-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                    <div class="loja-header" style="background: transparent; color: white;">📊 GRUPO GERAL</div>
-                    <div class="loja-content" style="color: white;">
-                        <div class="loja-metric" style="border-bottom-color: rgba(255,255,255,0.2);">
-                            <span class="loja-metric-label" style="color: rgba(255,255,255,0.8);">Vendas</span>
-                            <span style="font-size: 18px; font-weight: bold; color: white;">${npsGrupoVendas}</span>
+        function criarCardNPS() {
+            const grid = document.getElementById('nps-grid');
+            let html = '';
+            let totalPromotoras = 0, totalDetratoras = 0, totalRespostas = 0;
+
+            Object.entries(NPS_LOJAS).forEach(([loja, dados]) => {
+                const vendas = dados.vendas;
+                const posvenda = dados.pos_vendas;
+
+                // Calcula NPS Vendas
+                const totalVendas = vendas.promotoras + vendas.neutras + vendas.detratoras;
+                const npsVendas = calcularNPS(vendas.promotoras, vendas.detratoras, totalVendas);
+                const vendasMeta = vendas.meta;
+                const vendasFaltam = Math.max(0, vendasMeta - npsVendas);
+                const vendasFaltamNotas = Math.ceil((vendasFaltam / 100) * totalVendas);
+
+                // Calcula NPS Pós-vendas
+                const totalPosvenda = posvenda.promotoras + posvenda.neutras + posvenda.detratoras;
+                const npsPosvenda = calcularNPS(posvenda.promotoras, posvenda.detratoras, totalPosvenda);
+                const posvendaMeta = posvenda.meta;
+                const posvrendaFaltam = Math.max(0, posvendaMeta - npsPosvenda);
+                const posvrendaFaltamNotas = Math.ceil((posvrendaFaltam / 100) * totalPosvenda);
+
+                const vendasBadge = npsVendas >= vendasMeta ? 'badge-green' : (npsVendas >= 75 ? 'badge-yellow' : 'badge-red');
+                const posvBadge = npsPosvenda >= posvendaMeta ? 'badge-green' : (npsPosvenda >= 75 ? 'badge-yellow' : 'badge-red');
+
+                totalPromotoras += vendas.promotoras + posvenda.promotoras;
+                totalDetratoras += vendas.detratoras + posvenda.detratoras;
+                totalRespostas += totalVendas + totalPosvenda;
+
+                html += `
+                    <div class="card" onclick="mostrarDetalhesNPS('${loja}')">
+                        <div class="card-header">
+                            <span>${loja}</span>
                         </div>
-                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-bottom: 12px;">Meta: ${NPS_METAS.vendas}</div>
-                        <div class="loja-metric" style="border-bottom: none;">
-                            <span class="loja-metric-label" style="color: rgba(255,255,255,0.8);">Pós-Vendas</span>
-                            <span style="font-size: 18px; font-weight: bold; color: white;">${npsGrupoPosvenda}</span>
+
+                        <!-- VENDAS -->
+                        <div class="detail-section">
+                            <div class="detail-title">Vendas de Veículos</div>
+                            <div class="metric-row">
+                                <span class="metric-label">NPS</span>
+                                <span class="metric-value" style="color: ${npsVendas >= vendasMeta ? '#28a745' : '#dc3545'}">${npsVendas}</span>
+                                <span class="card-badge ${vendasBadge}">Meta: ${vendasMeta}</span>
+                            </div>
+                            ${vendasFaltam > 0 ? `
+                                <div class="meta-alert">
+                                    ⚠️ Faltam ${vendasFaltamNotas} notas promotoras
+                                </div>
+                            ` : `
+                                <div class="meta-alert meta-success">
+                                    ✅ Meta atingida!
+                                </div>
+                            `}
                         </div>
-                        <div style="font-size: 11px; color: rgba(255,255,255,0.8);">Meta: ${NPS_METAS.pos_vendas}</div>
+
+                        <!-- PÓS-VENDAS -->
+                        <div class="detail-section">
+                            <div class="detail-title">Pós-Vendas</div>
+                            <div class="metric-row">
+                                <span class="metric-label">NPS</span>
+                                <span class="metric-value" style="color: ${npsPosvenda >= posvendaMeta ? '#28a745' : '#dc3545'}">${npsPosvenda}</span>
+                                <span class="card-badge ${posvBadge}">Meta: ${posvendaMeta}</span>
+                            </div>
+                            ${posvrendaFaltam > 0 ? `
+                                <div class="meta-alert">
+                                    ⚠️ Faltam ${posvrendaFaltamNotas} notas promotoras
+                                </div>
+                            ` : `
+                                <div class="meta-alert meta-success">
+                                    ✅ Meta atingida!
+                                </div>
+                            `}
+                        </div>
+
+                        <p style="font-size: 12px; color: #999; margin-top: 10px;">👆 Clique para gráficos detalhados</p>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+        }
+
+        function mostrarDetalhesAvaliacoes(loja, count, conversion, ticket) {
+            const modal = document.getElementById('detailModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+
+            title.textContent = `Avaliações - ${loja}`;
+            body.innerHTML = `
+                <div class="detail-section">
+                    <div class="detail-title">Resumo das Avaliações</div>
+                    <div class="detail-row">
+                        <span>Total de Avaliações</span>
+                        <span style="font-weight: 700; color: #667eea;">${count}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Taxa de Conversão</span>
+                        <span style="font-weight: 700; color: ${conversion >= 25 ? '#28a745' : '#dc3545'};">${conversion}%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Ticket Médio</span>
+                        <span style="font-weight: 700; color: #667eea;">R$ ${ticket.toLocaleString('pt-BR')}</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">Métricas Detalhadas</div>
+                    <div class="detail-row">
+                        <span>Conversões (aprox.)</span>
+                        <span style="font-weight: 700;">${Math.round(count * conversion / 100)} avaliações</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Ticket Total</span>
+                        <span style="font-weight: 700;">R$ ${(count * ticket).toLocaleString('pt-BR')}</span>
                     </div>
                 </div>
             `;
 
-            container.innerHTML = cardsHTML;
+            modal.classList.add('active');
         }
 
-        // Variável global para controlar período
-        let currentPeriod = 7;
+        function mostrarDetalhesNPS(loja) {
+            const modal = document.getElementById('detailModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            const dados = NPS_LOJAS[loja];
 
-        function updateChartPeriod(days) {
-            currentPeriod = days;
+            const vendas = dados.vendas;
+            const posvenda = dados.pos_vendas;
 
-            // Atualizar botões
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.style.background = 'white';
-                btn.style.color = '#333';
-                btn.style.border = '1px solid #ccc';
-            });
-            event.target.style.background = '#667eea';
-            event.target.style.color = 'white';
-            event.target.style.border = '1px solid #667eea';
+            const totalVendas = vendas.promotoras + vendas.neutras + vendas.detratoras;
+            const npsVendas = calcularNPS(vendas.promotoras, vendas.detratoras, totalVendas);
+            const vendasFaltam = Math.max(0, vendas.meta - npsVendas);
+            const vendasFaltamNotas = Math.ceil((vendasFaltam / 100) * totalVendas);
 
-            // Recarregar dados
-            loadData();
+            const totalPosvenda = posvenda.promotoras + posvenda.neutras + posvenda.detratoras;
+            const npsPosvenda = calcularNPS(posvenda.promotoras, posvenda.detratoras, totalPosvenda);
+            const posvrendaFaltam = Math.max(0, posvenda.meta - npsPosvenda);
+            const posvrendaFaltamNotas = Math.ceil((posvrendaFaltam / 100) * totalPosvenda);
+
+            title.textContent = `NPS Detalhado - ${loja}`;
+            body.innerHTML = `
+                <!-- VENDAS -->
+                <div class="detail-section">
+                    <div class="detail-title">Vendas de Veículos</div>
+                    <div class="detail-row">
+                        <span>NPS</span>
+                        <span style="font-weight: 700; font-size: 20px; color: ${npsVendas >= vendas.meta ? '#28a745' : '#dc3545'};">${npsVendas}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Meta</span>
+                        <span style="font-weight: 700;">${vendas.meta}</span>
+                    </div>
+                    ${vendasFaltam > 0 ? `
+                        <div class="meta-alert">
+                            ⚠️ Faltam <strong>${vendasFaltamNotas} notas promotoras</strong> para atingir a meta
+                        </div>
+                    ` : `
+                        <div class="meta-alert meta-success">
+                            ✅ Meta atingida!
+                        </div>
+                    `}
+
+                    <div style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 6px;">
+                        <div class="detail-row">
+                            <span>🟢 Promotoras (9-10)</span>
+                            <span style="font-weight: 700; color: #28a745;">${vendas.promotoras}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>🟡 Neutras (7-8)</span>
+                            <span style="font-weight: 700; color: #ffc107;">${vendas.neutras}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>🔴 Detratoras (0-6)</span>
+                            <span style="font-weight: 700; color: #dc3545;">${vendas.detratoras}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span><strong>Total de Respostas</strong></span>
+                            <span style="font-weight: 700;">${totalVendas}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PÓS-VENDAS -->
+                <div class="detail-section" style="margin-top: 20px;">
+                    <div class="detail-title">Pós-Vendas</div>
+                    <div class="detail-row">
+                        <span>NPS</span>
+                        <span style="font-weight: 700; font-size: 20px; color: ${npsPosvenda >= posvenda.meta ? '#28a745' : '#dc3545'};">${npsPosvenda}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Meta</span>
+                        <span style="font-weight: 700;">${posvenda.meta}</span>
+                    </div>
+                    ${posvrendaFaltam > 0 ? `
+                        <div class="meta-alert">
+                            ⚠️ Faltam <strong>${posvrendaFaltamNotas} notas promotoras</strong> para atingir a meta
+                        </div>
+                    ` : `
+                        <div class="meta-alert meta-success">
+                            ✅ Meta atingida!
+                        </div>
+                    `}
+
+                    <div style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 6px;">
+                        <div class="detail-row">
+                            <span>🟢 Promotoras (9-10)</span>
+                            <span style="font-weight: 700; color: #28a745;">${posvenda.promotoras}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>🟡 Neutras (7-8)</span>
+                            <span style="font-weight: 700; color: #ffc107;">${posvenda.neutras}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>🔴 Detratoras (0-6)</span>
+                            <span style="font-weight: 700; color: #dc3545;">${posvenda.detratoras}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span><strong>Total de Respostas</strong></span>
+                            <span style="font-weight: 700;">${totalPosvenda}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('active');
         }
 
-        // Carregar dados ao iniciar
-        loadData();
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
 
-        // Auto-refresh a cada 30 segundos
-        setInterval(loadData, 30000);
+        function atualizarHora() {
+            const agora = new Date();
+            document.getElementById('last-update-time').textContent =
+                `Última atualização: ${agora.toLocaleTimeString('pt-BR')}`;
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            criarCardAvaliacoes();
+            criarCardNPS();
+            atualizarHora();
+            setInterval(atualizarHora, 60000); // Atualiza a hora a cada minuto
+        });
+
+        // Fechar modal ao clicar fora
+        document.getElementById('detailModal').addEventListener('click', (e) => {
+            if (e.target.id === 'detailModal') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
