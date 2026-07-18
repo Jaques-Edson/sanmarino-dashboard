@@ -142,23 +142,64 @@
             border-radius: 50%;
         }
 
+        .selector-container {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+
+        .month-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .selector-input {
+            padding: 10px 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .selector-input:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .selector-input:focus {
+            outline: none;
+            background: rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .selector-input option {
+            background: #2c3e50;
+            color: white;
+        }
+
         .period-selector {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .period-btn {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border: 2px solid rgba(255,255,255,0.3);
             background: rgba(255,255,255,0.1);
             color: white;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .period-btn:hover {
@@ -169,6 +210,35 @@
             background: #667eea;
             border-color: #667eea;
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 8px 0;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .last-update {
@@ -219,13 +289,42 @@
         <div style="margin-bottom: 40px;">
             <h2 class="section-title">🚗 Avaliações de Veículos</h2>
 
-            <!-- Seletor de Períodos -->
-            <div class="period-selector" id="periodSelector">
-                <button class="period-btn active" data-period="30">Últimos 30 dias</button>
-                <button class="period-btn" data-period="15">Últimos 15 dias</button>
-                <button class="period-btn" data-period="90">Últimos 3 meses</button>
-                <button class="period-btn" data-period="180">Últimos 6 meses</button>
-                <button class="period-btn" data-period="all">Período completo</button>
+            <!-- Seletor de Mês/Ano -->
+            <div class="selector-container">
+                <div class="month-selector">
+                    <select id="monthSelector" class="selector-input">
+                        <option value="current">Mês Atual</option>
+                        <option value="last-month">Mês Anterior</option>
+                        <option value="custom">Personalizado</option>
+                    </select>
+                    <select id="yearSelector" class="selector-input" style="display: none;">
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026" selected>2026</option>
+                    </select>
+                    <select id="customMonthSelector" class="selector-input" style="display: none;">
+                        <option value="01">Janeiro</option>
+                        <option value="02">Fevereiro</option>
+                        <option value="03">Março</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Maio</option>
+                        <option value="06">Junho</option>
+                        <option value="07">Julho</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                    </select>
+                </div>
+                <!-- Seletor de Períodos -->
+                <div class="period-selector" id="periodSelector">
+                    <button class="period-btn active" data-period="30">Últimos 30 dias</button>
+                    <button class="period-btn" data-period="15">Últimos 15 dias</button>
+                    <button class="period-btn" data-period="90">3 meses</button>
+                    <button class="period-btn" data-period="180">6 meses</button>
+                    <button class="period-btn" data-period="all">Período completo</button>
+                </div>
             </div>
 
             <!-- Gráfico por Dia do Mês -->
@@ -241,12 +340,20 @@
                 </div>
             </div>
 
-            <!-- Grupo San Marino -->
+            <!-- Grupo San Marino - Detalhes -->
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: white; font-size: 18px; margin-bottom: 12px;">📊 Grupo San Marino - Detalhes</h3>
+                <div class="details-grid" id="detalhesGrupo">
+                    <!-- Métricas serão inseridas aqui -->
+                </div>
+            </div>
+
+            <!-- Grupo San Marino - Gráfico -->
             <div style="margin-bottom: 30px;">
-                <h3 style="color: white; font-size: 18px; margin-bottom: 15px;">📊 Grupo San Marino</h3>
+                <h3 style="color: white; font-size: 18px; margin-bottom: 15px;">📈 Distribuição por Loja</h3>
                 <div class="chart-grid">
                     <div class="chart-card">
-                        <div class="chart-title">Distribuição de Avaliações</div>
+                        <div class="chart-title">Avaliações - Grupo San Marino</div>
                         <div class="chart-container">
                             <canvas id="chartGrupoAvaliacoes"></canvas>
                         </div>
@@ -260,10 +367,10 @@
                 </div>
             </div>
 
-            <!-- Por Lojas -->
-            <h3 style="color: white; font-size: 18px; margin-bottom: 15px;">📍 Por Loja</h3>
-            <div class="chart-grid" id="chartsAvaliacoes">
-                <!-- Gráficos das lojas serão inseridos aqui -->
+            <!-- Por Lojas - Detalhes -->
+            <h3 style="color: white; font-size: 18px; margin-bottom: 12px;">📍 Detalhes por Loja</h3>
+            <div id="detalhesLojas" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                <!-- Detalhes das lojas serão inseridos aqui -->
             </div>
         </div>
 
@@ -489,18 +596,67 @@
             }
         }
 
-        function criarGraficosAvaliacoes() {
-            const container = document.getElementById('chartsAvaliacoes');
+        function criarDetalhesGrupo() {
+            let totalAval = 0, totalConversao = 0, totalTicket = 0;
+
+            LOJAS_ORDEM.forEach(loja => {
+                totalAval += AVALIACOES_LOJAS[loja].count;
+                totalConversao += AVALIACOES_LOJAS[loja].conversion;
+                totalTicket += AVALIACOES_LOJAS[loja].ticket;
+            });
+
+            const mediaConversao = (totalConversao / LOJAS_ORDEM.length).toFixed(1);
+            const mediaTicket = (totalTicket / LOJAS_ORDEM.length).toFixed(0);
+
+            const container = document.getElementById('detalhesGrupo');
+            container.innerHTML = `
+                <div class="metric-card">
+                    <div class="metric-label">📊 Total Avaliado</div>
+                    <div class="metric-value">${totalAval}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">📈 Taxa Conversão</div>
+                    <div class="metric-value">${mediaConversao}%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">💰 Ticket Médio</div>
+                    <div class="metric-value">R$ ${mediaTicket.toLocaleString('pt-BR')}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">🏪 Lojas Ativas</div>
+                    <div class="metric-value">${LOJAS_ORDEM.length}</div>
+                </div>
+            `;
+        }
+
+        function criarDetalhesLojas() {
+            const container = document.getElementById('detalhesLojas');
             let html = '';
 
             LOJAS_ORDEM.forEach(loja => {
                 const data = AVALIACOES_LOJAS[loja];
                 html += `
-                    <div class="chart-card">
-                        <div class="chart-title">${loja}</div>
-                        <div style="text-align: center; padding: 20px;">
-                            <div style="font-size: 32px; font-weight: 700; color: #667eea;">${data.count}</div>
-                            <div style="color: #999; font-size: 14px; margin-top: 10px;">Avaliações</div>
+                    <div class="chart-card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%); border: 1px solid rgba(102, 126, 234, 0.2); padding: 20px;">
+                        <div style="text-align: left;">
+                            <div style="color: white; font-size: 16px; font-weight: 700; margin-bottom: 15px;">${loja}</div>
+                            <div style="display: grid; gap: 12px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <span style="color: rgba(255,255,255,0.7); font-size: 13px;">Total Avaliado</span>
+                                    <span style="color: #667eea; font-weight: 700; font-size: 18px;">${data.count}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <span style="color: rgba(255,255,255,0.7); font-size: 13px;">Taxa Conversão</span>
+                                    <span style="color: #667eea; font-weight: 700; font-size: 18px;">${data.conversion}%</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <span style="color: rgba(255,255,255,0.7); font-size: 13px;">Ticket Médio</span>
+                                    <span style="color: #667eea; font-weight: 700; font-size: 18px;">R$ ${data.ticket.toLocaleString('pt-BR')}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                                    <span style="color: rgba(255,255,255,0.7); font-size: 13px;">Status</span>
+                                    <span style="color: #28a745; font-weight: 700; font-size: 13px;">✅ Ativa</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -741,26 +897,39 @@
         // Inicializar
         document.addEventListener('DOMContentLoaded', async () => {
             await carregarDadosAvaliacoes();
-            criarGraficosAvaliacoes();
+            criarDetalhesGrupo();
+            criarDetalhesLojas();
             criarGraficoLinhaDia();
             criarGraficosNPS();
             criarGraficosGrupo();
             atualizarHora();
 
+            // Event listeners para seletor de mês
+            document.getElementById('monthSelector').addEventListener('change', (e) => {
+                const customMonth = document.getElementById('customMonthSelector');
+                const yearSel = document.getElementById('yearSelector');
+
+                if (e.target.value === 'custom') {
+                    customMonth.style.display = 'block';
+                    yearSel.style.display = 'block';
+                } else {
+                    customMonth.style.display = 'none';
+                    yearSel.style.display = 'none';
+                }
+            });
+
             // Event listeners para seletor de períodos
             document.querySelectorAll('.period-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
-                    // Remove classe active de todos os botões
                     document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
-                    // Adiciona classe active ao botão clicado
                     e.target.classList.add('active');
 
                     const periodo = e.target.dataset.period;
                     PERIODO_SELECIONADO = periodo === 'all' ? 'all' : parseInt(periodo);
 
-                    // Recarrega dados com novo período
                     await carregarDadosAvaliacoes();
-                    criarGraficosAvaliacoes();
+                    criarDetalhesGrupo();
+                    criarDetalhesLojas();
                     criarGraficoLinhaDia();
                     criarGraficosGrupo();
                 });
@@ -768,7 +937,8 @@
 
             setInterval(async () => {
                 await carregarDadosAvaliacoes();
-                criarGraficosAvaliacoes();
+                criarDetalhesGrupo();
+                criarDetalhesLojas();
                 criarGraficoLinhaDia();
                 criarGraficosGrupo();
                 atualizarHora();
