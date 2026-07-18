@@ -1060,16 +1060,6 @@
             document.getElementById('npsPosvendarDetalhado').innerHTML = posHtml;
 
             // Gráficos
-            let pV = 0, nV = 0, dV = 0, pP = 0, nP = 0, dP = 0;
-            LOJAS_NPS_ORDEM.forEach(loja => {
-                pV += NPS_LOJAS[loja].vendas.promotoras;
-                nV += NPS_LOJAS[loja].vendas.neutras;
-                dV += NPS_LOJAS[loja].vendas.detratoras;
-                pP += NPS_LOJAS[loja].pos_vendas.promotoras;
-                nP += NPS_LOJAS[loja].pos_vendas.neutras;
-                dP += NPS_LOJAS[loja].pos_vendas.detratoras;
-            });
-
             const ctxV = document.getElementById('npsChartVendas')?.getContext('2d');
             if (ctxV && charts.npsV) charts.npsV.destroy();
             if (ctxV) {
