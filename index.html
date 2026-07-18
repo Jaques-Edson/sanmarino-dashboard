@@ -272,7 +272,7 @@
                 </div>
             </div>
 
-            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">📊 Análise Completa</h2>
+            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">🚗 Avaliações de Veículos</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px; margin-bottom: 30px;">
                 <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); grid-column: 1/-1;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -308,7 +308,12 @@
                 </div>
             </div>
 
-            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">Desempenho das Lojas</h2>
+            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">⭐ NPS (Net Promoter Score)</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;" id="nps-container">
+                <!-- Cards de NPS serão inseridos aqui -->
+            </div>
+
+            <h2 style="color: white; margin-bottom: 20px; font-size: 20px;">🏆 Desempenho das Lojas - Avaliações</h2>
             <div class="lojas-grid" id="lojas-container">
                 <!-- Lojas serão inseridas aqui -->
             </div>
@@ -416,6 +421,9 @@
 
                 // Cria gráficos
                 createCharts(lojasNames, chartAvaliacoes, chartConversao);
+
+                // Cria cards de NPS
+                createNPSCards();
 
                 document.getElementById('last-update-time').textContent = `Última atualização: ${new Date().toLocaleTimeString('pt-BR')}`;
 
@@ -654,6 +662,77 @@
                     </div>
                 </div>
             `;
+        }
+
+        // DADOS DE NPS (Estrutura para trocar pelos dados reais depois)
+        const NPS_LOJAS = {
+            'Matriz': { vendas: 92, pos_vendas: 88 },
+            'Zona Sul': { vendas: 95, pos_vendas: 91 },
+            'Gravataí': { vendas: 89, pos_vendas: 87 },
+            'Viamão': { vendas: 93, pos_vendas: 89 }
+        };
+
+        const NPS_METAS = {
+            vendas: 94,
+            pos_vendas: 90
+        };
+
+        function createNPSCards() {
+            const container = document.getElementById('nps-container');
+            let cardsHTML = '';
+            let totalVendas = 0, totalPosvenda = 0;
+            const npsCards = Object.entries(NPS_LOJAS);
+
+            // Gera cards das lojas
+            npsCards.forEach(([lojaName, nps]) => {
+                const vendaStatus = nps.vendas >= NPS_METAS.vendas ? '✅' : '⚠️';
+                const posvStatus = nps.pos_vendas >= NPS_METAS.pos_vendas ? '✅' : '⚠️';
+
+                totalVendas += nps.vendas;
+                totalPosvenda += nps.pos_vendas;
+
+                cardsHTML += `
+                    <div class="loja-card">
+                        <div class="loja-header">${lojaName}</div>
+                        <div class="loja-content">
+                            <div class="loja-metric">
+                                <span class="loja-metric-label">Vendas</span>
+                                <span style="font-size: 16px; font-weight: bold; color: ${nps.vendas >= NPS_METAS.vendas ? '#4CAF50' : '#ff6b6b'};">${nps.vendas} ${vendaStatus}</span>
+                            </div>
+                            <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Meta: ${NPS_METAS.vendas}</div>
+                            <div class="loja-metric">
+                                <span class="loja-metric-label">Pós-Vendas</span>
+                                <span style="font-size: 16px; font-weight: bold; color: ${nps.pos_vendas >= NPS_METAS.pos_vendas ? '#4CAF50' : '#ff6b6b'};">${nps.pos_vendas} ${posvStatus}</span>
+                            </div>
+                            <div style="font-size: 11px; color: #999;">Meta: ${NPS_METAS.pos_vendas}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Card do Grupo Geral
+            const npsGrupoVendas = Math.round(totalVendas / npsCards.length);
+            const npsGrupoPosvenda = Math.round(totalPosvenda / npsCards.length);
+
+            cardsHTML += `
+                <div class="loja-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <div class="loja-header" style="background: transparent; color: white;">📊 GRUPO GERAL</div>
+                    <div class="loja-content" style="color: white;">
+                        <div class="loja-metric" style="border-bottom-color: rgba(255,255,255,0.2);">
+                            <span class="loja-metric-label" style="color: rgba(255,255,255,0.8);">Vendas</span>
+                            <span style="font-size: 18px; font-weight: bold; color: white;">${npsGrupoVendas}</span>
+                        </div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-bottom: 12px;">Meta: ${NPS_METAS.vendas}</div>
+                        <div class="loja-metric" style="border-bottom: none;">
+                            <span class="loja-metric-label" style="color: rgba(255,255,255,0.8);">Pós-Vendas</span>
+                            <span style="font-size: 18px; font-weight: bold; color: white;">${npsGrupoPosvenda}</span>
+                        </div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.8);">Meta: ${NPS_METAS.pos_vendas}</div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = cardsHTML;
         }
 
         // Variável global para controlar período
