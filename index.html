@@ -200,6 +200,37 @@
             margin-bottom: 12px;
         }
 
+        .gauge-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .gauge-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .gauge-text {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .gauge-meta {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+
         .info-row {
             display: flex;
             justify-content: space-between;
@@ -378,31 +409,110 @@
         <div class="tab-content active" id="home">
             <h2 class="section-title">📊 Indicadores Gerais - Grupo San Marino</h2>
 
+            <!-- NPS Gauge - TOPO -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                <div class="gauge-card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <div style="width: 40px; height: 40px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px;">🚙</div>
+                        <div style="text-align: left;">
+                            <div style="font-size: 16px; font-weight: 700; color: #1e3c72;">Vendas</div>
+                            <div style="font-size: 12px; color: #999;">NPS</div>
+                        </div>
+                    </div>
+                    <div class="gauge-circle" style="background: conic-gradient(#10b981 0deg 240deg, #e5e7eb 240deg 360deg); border: 8px solid #f0f0f0;">
+                        <div style="text-align: center;">
+                            <div class="gauge-text" style="color: #10b981;" id="homeNpsVendasValue">--</div>
+                            <div class="gauge-meta">/94</div>
+                        </div>
+                    </div>
+                    <div style="font-size: 13px; color: #10b981; font-weight: 600; margin-bottom: 15px;">Você x Meta</div>
+                    <div style="font-size: 12px; color: #999; padding: 10px; background: #f9fafb; border-radius: 6px; margin-bottom: 15px;">
+                        <div>Pontuação do período anterior <span id="homeVendsTrend" style="color: #10b981; font-weight: 600;">↑</span></div>
+                    </div>
+                    <div style="font-size: 13px; margin-bottom: 12px;">
+                        <strong id="homeVendasRespostas">--</strong> <span style="color: #999;">pesquisas</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
+                        <div>
+                            <div style="font-size: 16px; font-weight: 700; color: #ef4444;" id="homeVendasDet">0</div>
+                            <div style="font-size: 10px; color: #666;">Detratoras</div>
+                            <div style="font-size: 10px; color: #ef4444; font-weight: 600;" id="homeVendasDetPct">0%</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 16px; font-weight: 700; color: #f59e0b;" id="homeVendasNeu">0</div>
+                            <div style="font-size: 10px; color: #666;">Neutras</div>
+                            <div style="font-size: 10px; color: #f59e0b; font-weight: 600;" id="homeVendasNeuPct">0%</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 16px; font-weight: 700; color: #10b981;" id="homeVendasProm">0</div>
+                            <div style="font-size: 10px; color: #666;">Promotoras</div>
+                            <div style="font-size: 10px; color: #10b981; font-weight: 600;" id="homeVendasPromPct">0%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gauge-card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <div style="width: 40px; height: 40px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px;">🔧</div>
+                        <div style="text-align: left;">
+                            <div style="font-size: 16px; font-weight: 700; color: #1e3c72;">Pós-Vendas</div>
+                            <div style="font-size: 12px; color: #999;">NPS</div>
+                        </div>
+                    </div>
+                    <div class="gauge-circle" style="background: conic-gradient(#ef4444 0deg 240deg, #e5e7eb 240deg 360deg); border: 8px solid #f0f0f0;">
+                        <div style="text-align: center;">
+                            <div class="gauge-text" style="color: #ef4444;" id="homeNpsPosvendarValue">--</div>
+                            <div class="gauge-meta">/89</div>
+                        </div>
+                    </div>
+                    <div style="font-size: 13px; color: #ef4444; font-weight: 600; margin-bottom: 15px;">Você x Meta</div>
+                    <div style="font-size: 12px; color: #999; padding: 10px; background: #f9fafb; border-radius: 6px; margin-bottom: 15px;">
+                        <div>Pontuação do período anterior <span id="homePosvendarTrend" style="color: #ef4444; font-weight: 600;">↓</span></div>
+                    </div>
+                    <div style="font-size: 13px; margin-bottom: 12px;">
+                        <strong id="homePosvendarRespostas">--</strong> <span style="color: #999;">pesquisas</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
+                        <div>
+                            <div style="font-size: 16px; font-weight: 700; color: #ef4444;" id="homePosvendarDet">0</div>
+                            <div style="font-size: 10px; color: #666;">Detratoras</div>
+                            <div style="font-size: 10px; color: #ef4444; font-weight: 600;" id="homePosvendarDetPct">0%</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 16px; font-weight: 700; color: #f59e0b;" id="homePosvendarNeu">0</div>
+                            <div style="font-size: 10px; color: #666;">Neutras</div>
+                            <div style="font-size: 10px; color: #f59e0b; font-weight: 600;" id="homePosvendarNeuPct">0%</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 16px; font-weight: 700; color: #10b981;" id="homePosvendarProm">0</div>
+                            <div style="font-size: 10px; color: #666;">Promotoras</div>
+                            <div style="font-size: 10px; color: #10b981; font-weight: 600;" id="homePosvendarPromPct">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Avaliações Resume -->
+            <h2 class="section-title">📊 Avaliações de Veículos</h2>
             <div class="home-metrics" id="homeAvaliacoes">
                 <!-- Métricas de avaliações -->
             </div>
 
             <!-- Gráficos Resumidos - Lado a Lado -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; margin-top: 20px;">
+            <h2 class="section-title" style="margin-top: 30px;">📈 Análise Visual</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
                 <div class="card">
                     <div class="card-title">📊 Distribuição de Avaliações</div>
-                    <div class="chart-container" style="height: 350px;">
+                    <div class="chart-container" style="height: 300px;">
                         <canvas id="homeChartAvaliacoes"></canvas>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-title">⭐ Distribuição NPS Geral</div>
-                    <div class="chart-container" style="height: 350px;">
+                    <div class="card-title">⭐ Distribuição NPS (Total)</div>
+                    <div class="chart-container" style="height: 300px;">
                         <canvas id="homeChartNps"></canvas>
                     </div>
                 </div>
-            </div>
-
-            <!-- NPS Resume -->
-            <h2 class="section-title" style="margin-top: 20px;">⭐ NPS - Resumo Geral</h2>
-            <div class="grid-2" id="homeNpsCards">
-                <!-- Cards NPS -->
             </div>
         </div>
 
@@ -666,43 +776,32 @@
                 dP += NPS_LOJAS[loja].pos_vendas.detratoras;
             });
 
-            const npsV = calcularNPS(pV, dV, pV + nV + dV);
-            const npsP = calcularNPS(pP, dP, pP + nP + dP);
-            const corV = getCorNPS(npsV, 'vendas');
-            const corP = getCorNPS(npsP, 'pos_vendas');
+            const tV = pV + nV + dV;
+            const tP = pP + nP + dP;
+            const npsV = calcularNPS(pV, dV, tV);
+            const npsP = calcularNPS(pP, dP, tP);
 
-            document.getElementById('homeNpsCards').innerHTML = `
-                <div class="card">
-                    <div class="card-title">🚙 NPS - Vendas</div>
-                    <div style="text-align: center; padding: 15px 0;">
-                        <div style="font-size: 42px; font-weight: 700; color: ${corV}; margin: 10px 0;">${npsV}</div>
-                        <div style="font-size: 12px; color: #999;">Meta: ${METAS_NPS.vendas}</div>
-                        <div style="font-size: 13px; color: ${corV}; font-weight: 600; margin-top: 8px;">${npsV >= METAS_NPS.vendas ? '✅ Acima da meta' : '❌ Abaixo da meta'}</div>
-                    </div>
-                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center;">
-                            <div><div style="font-size: 18px; font-weight: 700; color: #10b981;">${pV}</div><div style="font-size: 10px; color: #666;">Promotoras</div></div>
-                            <div><div style="font-size: 18px; font-weight: 700; color: #f59e0b;">${nV}</div><div style="font-size: 10px; color: #666;">Neutras</div></div>
-                            <div><div style="font-size: 18px; font-weight: 700; color: #ef4444;">${dV}</div><div style="font-size: 10px; color: #666;">Detratoras</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">🔧 NPS - Pós-Vendas</div>
-                    <div style="text-align: center; padding: 15px 0;">
-                        <div style="font-size: 42px; font-weight: 700; color: ${corP}; margin: 10px 0;">${npsP}</div>
-                        <div style="font-size: 12px; color: #999;">Meta: ${METAS_NPS.pos_vendas}</div>
-                        <div style="font-size: 13px; color: ${corP}; font-weight: 600; margin-top: 8px;">${npsP >= METAS_NPS.pos_vendas ? '✅ Acima da meta' : '❌ Abaixo da meta'}</div>
-                    </div>
-                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center;">
-                            <div><div style="font-size: 18px; font-weight: 700; color: #10b981;">${pP}</div><div style="font-size: 10px; color: #666;">Promotoras</div></div>
-                            <div><div style="font-size: 18px; font-weight: 700; color: #f59e0b;">${nP}</div><div style="font-size: 10px; color: #666;">Neutras</div></div>
-                            <div><div style="font-size: 18px; font-weight: 700; color: #ef4444;">${dP}</div><div style="font-size: 10px; color: #666;">Detratoras</div></div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            // Atualizar Gauges
+            document.getElementById('homeNpsVendasValue').textContent = npsV;
+            document.getElementById('homeNpsPosvendarValue').textContent = npsP;
+            document.getElementById('homeVendasRespostas').textContent = tV;
+            document.getElementById('homePosvendarRespostas').textContent = tP;
+
+            // Vendas
+            document.getElementById('homeVendasDet').textContent = dV;
+            document.getElementById('homeVendasDetPct').textContent = ((dV/tV)*100).toFixed(1) + '%';
+            document.getElementById('homeVendasNeu').textContent = nV;
+            document.getElementById('homeVendasNeuPct').textContent = ((nV/tV)*100).toFixed(1) + '%';
+            document.getElementById('homeVendasProm').textContent = pV;
+            document.getElementById('homeVendasPromPct').textContent = ((pV/tV)*100).toFixed(1) + '%';
+
+            // Pós-Vendas
+            document.getElementById('homePosvendarDet').textContent = dP;
+            document.getElementById('homePosvendarDetPct').textContent = ((dP/tP)*100).toFixed(1) + '%';
+            document.getElementById('homePosvendarNeu').textContent = nP;
+            document.getElementById('homePosvendarNeuPct').textContent = ((nP/tP)*100).toFixed(1) + '%';
+            document.getElementById('homePosvendarProm').textContent = pP;
+            document.getElementById('homePosvendarPromPct').textContent = ((pP/tP)*100).toFixed(1) + '%';
 
             // Gráfico NPS
             const ctxNps = document.getElementById('homeChartNps')?.getContext('2d');
